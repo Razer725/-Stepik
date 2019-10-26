@@ -1,0 +1,13 @@
+class MoneyBox:
+    def __init__(self, capacity):
+        self.content = 0
+        self.capacity = capacity
+        # конструктор с аргументом – вместимость копилки
+
+    def can_add(self, v):
+        return self.capacity >= (self.content + v)
+        # True, если можно добавить v монет, False иначе
+
+    def add(self, v):
+        self.content += v
+        # положить v монет в копилку
