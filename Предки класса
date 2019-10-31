@@ -1,0 +1,31 @@
+n = int(input())
+dict_mro = {}
+for i in range(n):
+    data = input().split(' : ')
+    if len(data) == 1:
+        dict_mro[data[0]] = []
+    else:
+        data[1] = data[1].split()
+        tmp_dict = dict([data])
+        dict_mro.update(tmp_dict)
+q = int(input())
+mas = []
+
+
+def depth(par, child):
+    global mas
+    mas += dict_mro[child]
+    for element_of_child in dict_mro[child]:
+        depth(par, element_of_child)
+
+
+for i in range(q):
+    mas.clear()
+    lst_q = input().split()
+    depth(lst_q[0], lst_q[1])
+    if lst_q[0] == lst_q[1]:
+        print('Yes')
+    elif lst_q[0] in mas:
+        print('Yes')
+    else:
+        print('No')
