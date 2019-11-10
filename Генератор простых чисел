@@ -1,0 +1,9 @@
+from math import factorial
+
+
+def primes():
+    a = 2
+    while True:
+        if (factorial(a - 1) + 1) % a == 0:
+            yield a
+        a += 1
