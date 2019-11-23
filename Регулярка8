@@ -1,0 +1,10 @@
+import sys
+import re
+
+
+for line in sys.stdin:
+    line = line.rstrip()
+    pattern = r'\b(\w)(\w)\w*\b'
+    rep = r'\2\1\w*'
+    out = re.sub(pattern, rep, line)
+    print(out)
