@@ -1,0 +1,10 @@
+import requests
+import re
+
+html = requests.get(input().strip()).text
+pattern = r'<a.*?href\s?=\s?[\"\']?(?:\w*?(?:-)?:?\/\/)?(\w[\w\.-]*).*>'
+sites = set(re.findall(pattern, html))
+sites_list = list(sites)
+sites_list.sort()
+for s in sites_list:
+    print(s)
