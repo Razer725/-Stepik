@@ -1,0 +1,10 @@
+import csv
+import collections
+
+with open('D:\\Crimes.csv', 'r') as f:
+    crimes = []
+    reader = csv.DictReader(f, delimiter=',')
+    for line in reader:
+        crimes.append(line['Primary Type'])
+    count = collections.Counter(crimes)
+    print(count.most_common())
