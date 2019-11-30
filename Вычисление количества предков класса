@@ -1,0 +1,38 @@
+import json
+import collections
+
+answer = collections.OrderedDict()
+new_dict = dict()
+working_dict = dict()
+data = json.loads(input())
+names = []
+all_child = set()
+# Словарь {Имя: Предки}
+for elements in data:
+    new_dict[elements['name']] = elements['parents']
+for key in new_dict:
+    names += key
+    working_dict[key] = []
+# Словарь {Предки: Имя}
+for key, values in new_dict.items():
+    for value in values:
+        working_dict[value] += [key]
+
+
+def depth(par):
+    global all_child
+    for child in working_dict[par]:
+        all_child.add(child)
+        depth(child)
+
+
+for key in working_dict:
+    all_child.clear()
+    print(key)
+    depth(key)
+    answer[key] = len(all_child) + 1
+
+list_keys = list(answer.keys())
+list_keys.sort()
+for k in list_keys:
+    print(k, ':', answer[k])
