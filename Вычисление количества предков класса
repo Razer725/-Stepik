@@ -1,7 +1,6 @@
 import json
-import collections
 
-answer = collections.OrderedDict()
+answer = dict()
 new_dict = dict()
 working_dict = dict()
 data = json.loads(input())
@@ -28,7 +27,6 @@ def depth(par):
 
 for key in working_dict:
     all_child.clear()
-    print(key)
     depth(key)
     answer[key] = len(all_child) + 1
 
