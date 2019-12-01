@@ -1,0 +1,42 @@
+import requests
+import json
+
+client_id = 'a4636f6fda7e0c0b0d24'
+client_secret = '11f5090987b82aec97a576e3754fe3ac'
+
+# инициируем запрос на получение токена
+r = requests.post("https://api.artsy.net/api/tokens/xapp_token",
+                  data={
+                      "client_id": client_id,
+                      "client_secret": client_secret
+                  })
+
+# разбираем ответ сервера
+j = json.loads(r.text)
+# достаем токен
+token = j["token"]
+
+# создаем заголовок, содержащий наш токен
+headers = {"X-Xapp-Token": token}
+# инициируем запрос с заголовком
+r = requests.get("https://api.artsy.net/api/artists/4d8b92b34eb68a1b2c0003f4", headers=headers)
+
+# разбираем ответ сервера
+j = json.loads(r.text)
+
+artists = {}
+with open('D:\\dataset_24476_4 (2).txt') as file_in:
+    ppl = file_in.readlines()
+    ppl = [p.strip() for p in ppl]
+    for p in ppl:
+        # создаем заголовок, содержащий наш токен
+        headers = {"X-Xapp-Token": token}
+        # инициируем запрос с заголовком
+        r = requests.get("https://api.artsy.net/api/artists/" + p, headers=headers)
+        # разбираем ответ сервера
+        j = json.loads(r.content.decode('utf-8'))
+        artists[j['sortable_name']] = j['birthday']
+    sorted_artists = sorted(artists.items(), key=lambda x: x[1])
+    for artist in sorted_artists:
+        print(artist[0])
+
