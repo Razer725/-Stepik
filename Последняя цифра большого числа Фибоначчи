@@ -1,0 +1,19 @@
+def fib(n):
+    if n == 1:
+        return 1
+    f1 = 0
+    f2 = 1
+    mod = 0
+    for i in range(2, n+1):
+        mod = (f1 + f2) % 10
+        f1, f2 = f2, mod
+    return mod
+
+
+def main():
+    n = int(input())
+    print(fib(n))
+
+
+if __name__ == "__main__":
+    main()
