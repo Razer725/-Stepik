@@ -1,0 +1,24 @@
+def fib_mod(n, m):
+    pisano = [0, 1]
+    f1 = 1
+    f2 = 1
+    i = 2
+    pisano.append(f2 % m)
+    while True:
+        if pisano[i - 1] == 0 and pisano[i] == 1 or len(pisano) > 6 * m:
+            pisano_period = len(pisano) - 2
+            break
+        else:
+            f1, f2 = f2, (f1 + f2) % m
+            pisano.append(f2 % m)
+            i += 1
+    return pisano[n % pisano_period] if (6 * m) > len(pisano) else n % m
+
+
+def main():
+    n, m = map(int, input().split())
+    print(fib_mod(n, m))
+
+
+if __name__ == "__main__":
+    main()
