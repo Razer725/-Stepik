@@ -1,0 +1,65 @@
+from collections import Counter
+
+nodes = {}
+code = ''
+
+
+def huffman_coding(a):
+    h = Counter(a)  # Частота встречи символов
+    s = []
+    output = ''
+    huff_code = dict()  # Символ: код
+    k = len(h)  # Количество различных букв в строке
+    global nodes
+    for key, value in h.items():
+        s.append((key, value))
+    if k < 2:
+        print('1', len(a))
+        print(s[0][0], '0', sep=': ')
+        output = '0' * len(a)
+        return output
+    while len(s) >= 2:
+        i = min(s, key=lambda x: x[1])
+        s.remove(i)
+        j = min(s, key=lambda x: x[1])
+        s.remove(j)
+        parent = i[0] + j[0]  # Родитель i, j
+        weight = i[1] + j[1]  # Вес родителя
+        s.append((parent, weight))
+        nodes[i[0]] = (parent, 'left')  # (Родитель, откуда пришел)
+        nodes[j[0]] = (parent, 'right')
+    for c in h:
+        huff_code[c] = depth(c)
+    for symbol in a:
+        output += huff_code[symbol]
+    print(k, len(output))
+    for key, value in huff_code.items():
+        print(key, value, sep=': ')
+    return output
+
+
+def depth(var):
+    """ формирование кодов Хаффмана"""
+    global nodes
+    global code
+    while var in nodes:
+        if nodes[var][1] == 'left':
+            code = '0' + code
+            return depth(nodes[var][0])
+        else:
+            code = "1" + code
+            return depth(nodes[var][0])
+    else:
+        out = code
+        code = ''
+        return out
+
+
+def main():
+    s = str(input())
+    encrypt = huffman_coding(s)
+    print(encrypt)
+
+
+if __name__ == '__main__':
+    main()
