@@ -1,0 +1,30 @@
+def huffman_decoding(m, huff_dict, encoded_string):
+    i = 0
+    output = []
+    reversed_huff_dict = {v: k for k, v in huff_dict.items()}
+    current_code = ''
+    while i < m:
+        current_code += encoded_string[i]
+        if current_code in reversed_huff_dict:
+            output += reversed_huff_dict[current_code]
+            i += 1
+            current_code = ''
+        else:
+            i += 1
+    return output
+
+
+def main():
+    k, m = map(int, input().split())  # k, m - количество различных букв, встречающихся в строке,
+    # и размер получившейся закодированной строки
+    huff_dict = dict()
+    for i in range(k):
+        tmp = input().split(': ')
+        huff_dict.update({tmp[0]: tmp[1]})
+    encoded_string = input()
+    decrypt = huffman_decoding(m, huff_dict, encoded_string)
+    print(*decrypt, sep='')
+
+
+if __name__ == '__main__':
+    main()
