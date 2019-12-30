@@ -1,0 +1,28 @@
+import heapq
+heap = []
+
+
+def insert(x):
+    x = -x  # MAX куча
+    global heap
+    heapq.heappush(heap, x)
+    return
+
+
+def extract_max():
+    global heap
+    return abs(heapq.heappop(heap))
+
+
+def main():
+    n = int(input())
+    for i in range(n):
+        operation = input().split()
+        if operation[0] == 'Insert':
+            insert(int(operation[1]))
+        elif operation[0] == 'ExtractMax':
+            print(extract_max())
+
+
+if __name__ == '__main__':
+    main()
