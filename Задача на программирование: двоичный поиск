@@ -1,0 +1,26 @@
+def binary_search(a, n, j):
+    left = 0    # Левая граница
+    right = n - 1   # Правая граница
+    while left <= right:
+        middle = left + (right - left) // 2
+        if a[middle] == j:
+            return middle + 1
+        elif a[middle] > j:
+            right = middle - 1
+        else:
+            left = middle + 1
+    return -1
+
+
+def main():
+    n, *a = map(int, input().split())
+    k, *b = map(int, input().split())
+    output = []
+    for j in b:
+        output.append(binary_search(a, n, j))
+    print(*output)
+    return
+
+
+if __name__ == '__main__':
+    main()
