@@ -1,0 +1,40 @@
+inversion_counter = 0
+
+
+def merge_sort(a):
+    if len(a) > 1:
+        middle = len(a) // 2
+        return merge(merge_sort(a[0:middle]), merge_sort(a[middle:]))
+    return a
+
+
+def merge(m1, m2):
+    i = 0
+    j = 0
+    out = []
+    global inversion_counter
+    len_a = len(m1)
+    while i < len(m1) and j < len(m2):
+        if m1[i] <= m2[j]:
+            out.append(m1[i])
+            i += 1
+        else:
+            out.append(m2[j])
+            inversion_counter += len_a - i
+            j += 1
+    out += m1[i:]
+    out += m2[j:]
+    return out
+
+
+def main():
+    n = int(input())
+    a = list(map(int, input().split()))
+    merge_sort(a)
+    print(inversion_counter)
+    return
+
+
+if __name__ == '__main__':
+    main()
+
