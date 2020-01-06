@@ -1,0 +1,27 @@
+import bisect
+
+
+def main():
+    section1 = []
+    section2 = []
+    output = []
+    n, m = map(int, input().split())
+    for i in range(n):
+        segment = list(map(int, input().split()))
+        section1.append(segment)
+        section2.append(segment[::-1])
+    coordinate = tuple(map(int, input().split()))
+    section1.sort()
+    section2.sort()
+    max_el = section2[-1][0] + 1
+    min_el = section1[0][0] - 1
+    for c in coordinate:
+        i = bisect.bisect_right(section1, [c, max_el])
+        j = bisect.bisect_left(section2, [c, min_el])
+        output.append(i-j)
+    print(*output)
+    return
+
+
+if __name__ == '__main__':
+    main()
