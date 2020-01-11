@@ -1,0 +1,37 @@
+import bisect
+
+
+def lnis(n, a):  # largest non-increasing subsequence
+    d = [float('inf') for _ in range(n+1)]  # d[i] число, на которое оканчивается последовательность длины i
+    pos = [-1 for _ in range(n+1)]  # индекс элемента, на который заканчивается
+    # оптимальная подпоследовательность длины  i
+    prev = [-1 for _ in range(n)]   # позицию предыдущего элемента для a[i]
+    length = 0
+    d[0] = -float('inf')
+    for i in range(n):
+        j = bisect.bisect_right(d, a[i])
+        if d[j - 1] <= a[i] <= d[j]:
+            d[j] = a[i]
+            pos[j] = i
+            prev[i] = pos[j-1]
+            length = max(length, j)
+
+    answer = []
+    p = pos[length]
+    while p != -1:
+        answer.append(p+1)
+        p = prev[p]
+    answer.reverse()
+    print(len(answer))
+    return answer
+
+
+def main():
+    n = int(input())
+    a = list(map(int, input().split()))
+    a = [-x for x in a]
+    print(*lnis(n, a))
+
+
+if __name__ == '__main__':
+    main()
