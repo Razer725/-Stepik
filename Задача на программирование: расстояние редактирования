@@ -1,0 +1,31 @@
+def levenshtein_distance(i, j, a, b, d):
+    if d[i][j] is None:
+        if i == 0:
+            d[i][j] = j
+        elif j == 0:
+            d[i][j] = i
+        else:
+            _ins = levenshtein_distance(i, j-1, a, b, d) + 1
+            _del = levenshtein_distance(i-1, j, a, b, d) + 1
+            _sub = levenshtein_distance(i-1, j-1, a, b, d) + diff(a[i-1], b[j-1])
+            d[i][j] = min(_ins, _del, _sub)
+    return d[i][j]
+
+
+def diff(x, y):
+    if x == y:
+        return 0
+    return 1
+
+
+def main():
+    a = list(input())
+    b = list(input())
+    d = [[None for _ in range(len(b)+1)] for _ in range(len(a)+1)]
+    i = len(a)
+    j = len(b)
+    print(levenshtein_distance(i, j, a, b, d))
+
+
+if __name__ == '__main__':
+    main()
