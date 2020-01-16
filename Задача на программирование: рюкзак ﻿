@@ -1,0 +1,23 @@
+W, n = map(int, input().split())
+v = 0
+w = list(map(int, input().split()))
+D = [[0 for j in range(W+1)] for i in range(n+1)]
+
+
+def knapsack_td(W, w, d, n):
+    for i in range(n):
+        for j in range(W+1):
+            if w[i] > j:
+                d[i][j] = d[i-1][j]
+            else:
+                d[i][j] = max(d[i-1][j], d[i-1][j-w[i]] + w[i])
+    return d[n-1][W]
+
+
+def main():
+    global W, n, w, D
+    print(knapsack_td(W, w, D, n))
+
+
+if __name__ == '__main__':
+    main()
