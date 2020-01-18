@@ -1,0 +1,22 @@
+max_sum = []
+
+
+def ladder(a, i):
+    global max_sum
+    if i == 1:
+        return a[0]
+    for j in range(i):
+        max_sum[j] += a[j] + max(max_sum[j-1], max_sum[j-2])
+    return max_sum[-1]
+
+
+def main():
+    global max_sum
+    n = int(input())
+    a = list(map(int, input().split()))
+    max_sum = [0 for _ in range(n)]
+    print(ladder(a, n))
+
+
+if __name__ == '__main__':
+    main()
